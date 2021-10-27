@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Color Filter</title>
+</head>
+
+<body>
+
+    <div id="app">
+        <input type="text" class="inputColor" v-model="filter" placeholder="type a color and filter!">
+        <p>{{filter}}</p>
+        <div class="flex">
+            <div v-for="row in filteredColors">
+                <div class="divColors" :style="{background: row.color}"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                divs: [
+                    {color: 'red' },
+                    {color: 'blue' },
+                    {color: 'green' },
+                    {color: 'green' },
+                    {color: 'red' },
+                    {color: 'blue' },
+                    {color: 'purple' },
+                    {color: 'purple' },
+                    {color: 'yellow' }
+                ],
+                filter: ''
+
+            },
+            computed: {
+                filteredColors(){
+                    return this.divs.filter(row=>{
+                        const color = row.color.toString().toLowerCase();
+                        const searchColor = this.filter.toLowerCase();
+                        return color.includes(searchColor);
+                    })
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
